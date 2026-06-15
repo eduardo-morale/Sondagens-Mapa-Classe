@@ -113,7 +113,7 @@ https://{usuario}.github.io/{repo}/mapa_classe_sondagens.xlsx
 
 ## Agendamento
 
-Roda automaticamente todo dia às **06h00 BRT** (09:00 UTC), definido no `atualizar-planilha.yml`:
+Roda automaticamente, ex.: todo dia às **06h00 BRT** (09:00 UTC), definido no `atualizar-planilha.yml`:
 
 ```yaml
 schedule:

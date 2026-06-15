@@ -11,7 +11,7 @@ O stakeholder salva o link uma vez e sempre baixa os dados mais recentes.
 ## Como funciona
 
 ```
-[GitHub Actions — cron 06h BRT]
+[GitHub Actions — cron periódico]
         |
         v
 [Autentica no Databricks via OAuth refresh token]

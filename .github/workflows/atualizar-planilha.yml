@@ -1,0 +1,39 @@
+
+name: Atualizar Planilha Mapa Classe
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # 06h BRT (UTC-3) — dados frescos antes do expediente
+  workflow_dispatch:         # permite disparar manualmente pelo GitHub
+
+jobs:
+  gerar-planilha:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # necessario para publicar no gh-pages
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install requests openpyxl
+
+      - name: Gerar planilha
+        env:
+          DATABRICKS_HOST        : https://adb-7405607349429365.5.azuredatabricks.net
+          DATABRICKS_WAREHOUSE_ID: 1bcf5e5e4945fb6e
+          DATABRICKS_REFRESH_TOKEN: ${{ secrets.DATABRICKS_REFRESH_TOKEN }}
+        run: python scripts/gerar_planilha.py
+
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir : ./output
+          keep_files  : true
